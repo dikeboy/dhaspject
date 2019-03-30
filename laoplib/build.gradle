@@ -1,0 +1,29 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile files('libs/aspectjtools-1.8.9.jar')
+
+}
+repositories {
+    mavenCentral()
+}
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //设置插件的GAV参数
+            pom.artifactId = 'laop'
+            //文件发布到下面目录
+            repository(url: uri('../repo'))
+            pom.groupId = 'com.dhaspject.plugin'
+            pom.version = '1.0.0'
+        }
+    }
+}
+
+apply from: 'bintray.gradle'
+
