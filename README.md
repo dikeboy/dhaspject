@@ -1,8 +1,11 @@
 ## What's this
 
-An gradle plugin  for android project  aspject,
-Support for multiple  library, Kotlin, Java,
-Support for  debug,release,
+An gradle plugin  for android project  aspject
+
+Support for multiple  library, Kotlin, Java
+
+Support for  debug,release
+
 Support for multiple flavors
 
 ## How to use
