@@ -36,6 +36,7 @@ api_log: build.gradle( the aop module, you can modify the name by yourself)
 
     apply plugin: "com.dhaspject"
     laop{
+     aopModule("api_log")
     aopType("debug")
     moduleType(2)    //2 is important
 }
