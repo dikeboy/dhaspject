@@ -7,7 +7,7 @@ project:  build.gradle
        classpath 'com.dhaspject:dhaspject:1.0.0'
     }
     
-maybe should add `        maven { url "https://dl.bintray.com/dikeboy/dhaspject/" }`
+
 
 
 app: build.gradle
