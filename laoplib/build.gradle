@@ -1,29 +1,37 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
-
+//apply plugin:'com.novoda.bintray-release'
 dependencies {
     compile gradleApi()
     compile localGroovy()
     compile files('libs/aspectjtools-1.8.9.jar')
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
 
 }
 repositories {
     mavenCentral()
 }
-
+apply from: 'bintray.gradle'
 
 uploadArchives {
     repositories {
         mavenDeployer {
             //设置插件的GAV参数
-            pom.artifactId = 'laop'
+            pom.artifactId = 'laoplib'
             //文件发布到下面目录
             repository(url: uri('../repo'))
-            pom.groupId = 'com.dhaspject.plugin'
+            pom.groupId = 'com.dhaspject'
             pom.version = '1.0.0'
         }
     }
 }
 
-apply from: 'bintray.gradle'
-
+//publish{
+//    userOrg = "dikeboy"
+//    groupId = 'com.dhaspject'
+//    artifactId = 'laoplib'
+//    publishVersion = '1.0.0'
+//    desc = 'android aspject'
+//    website = 'https://github.com/dikeboy/dhaspject'
+//}
+//
