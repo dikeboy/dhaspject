@@ -22,7 +22,7 @@ app: build.gradle
 }
 
 
-api_log( the aop module, you can define by yourself)
+api_log: build.gradle( the aop module, you can define by yourself)
 
     apply plugin: "com.dhaspject"
     laop{
@@ -32,7 +32,7 @@ api_log( the aop module, you can define by yourself)
 
 
 other module need aspject:
-my_lib
+my_lib: build.gradle
 
     apply plugin: "com.dhaspject"
     laop{
