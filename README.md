@@ -32,7 +32,7 @@ app: build.gradle
 }
 
 
-api_log: build.gradle( the aop module, you can define by yourself)
+api_log: build.gradle( the aop module, you can modify the name by yourself)
 
     apply plugin: "com.dhaspject"
     laop{
@@ -46,8 +46,8 @@ my_lib: build.gradle
 
     apply plugin: "com.dhaspject"
     laop{
-    javafiles("com.lance.aspectlib")
-    aopModule("api_log")
+    javafiles("com.lance.aspectlib") // witch package need to be aspject
+    aopModule("api_log") //the aop modle
     aopType("debug")
-    moduleType(2)
+    moduleType(2) //must to be 2
 }
