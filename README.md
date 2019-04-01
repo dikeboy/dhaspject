@@ -1,9 +1,3 @@
-# dhaspject
-android  aspectj aop, support for kotlin, java, Multiple libraries ， Multiple flavor, config by  debug mode
-
-
-
-
 ## How to use
 
 project:  build.gradle   
@@ -12,7 +6,10 @@ project:  build.gradle
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
        classpath 'com.dhaspject:dhaspject:1.0.0'
     }
-    maybe should add `        maven { url "https://dl.bintray.com/dikeboy/dhaspject/" }`
+    
+maybe should add `        maven { url "https://dl.bintray.com/dikeboy/dhaspject/" }`
+
+
 app: build.gradle
 
     apply plugin: "com.dhaspject"
@@ -23,6 +20,8 @@ app: build.gradle
     aopType("debug")  // aop type, debug: debug mode, default: always use, close: unuse
     moduleType(1)  //App module need to be 1,  other library need to be 2, 
 }
+
+
 api_log( the aop module, you can define by yourself)
 
     apply plugin: "com.dhaspject"
@@ -30,6 +29,8 @@ api_log( the aop module, you can define by yourself)
     aopType("debug")
     moduleType(2)    //2 is important
 }
+
+
 other module need aspject:
 my_lib
 
