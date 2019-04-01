@@ -12,6 +12,7 @@ project:  build.gradle
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
        classpath 'com.dhaspject:dhaspject:1.0.0'
     }
+    maybe should add `        maven { url "https://dl.bintray.com/dikeboy/dhaspject/" }`
 app: build.gradle
 
     apply plugin: "com.dhaspject"
