@@ -17,7 +17,7 @@ uploadArchives {
     repositories {
         mavenDeployer {
             //设置插件的GAV参数
-            pom.artifactId = 'laoplib'
+            pom.artifactId = 'dhaspject'
             //文件发布到下面目录
             repository(url: uri('../repo'))
             pom.groupId = 'com.dhaspject'

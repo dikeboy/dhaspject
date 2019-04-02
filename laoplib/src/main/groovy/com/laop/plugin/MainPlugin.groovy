@@ -13,21 +13,26 @@ public class MainPlugin implements Plugin<Project> {
         def currentFlavtor
         project.extensions.create("laop", LaopConfig)
 
-        project.afterEvaluate{
+        project.afterEvaluate {
 //            def flavor = utils.getCurrentFlavor(project)
 //            println("flavor name = "+ flavor)
             LaopConfig laopConfig = project.laop
-            def type = laopConfig.moduleType
-            println("kotlinPath"+laopConfig.kotlinFiles)
-            println("javaPath"+laopConfig.javaFiles)
-            if(laopConfig.aopType==LaopUtils.AOP_TYPE_CLOSE)
-                return
 
+            println("kotlinPath" + laopConfig.kotlinFiles)
+            println("javaPath" + laopConfig.javaFiles)
+            if (laopConfig.aopType == LaopUtils.AOP_TYPE_CLOSE)
+                return
+            println("application=" + project.android)
             def variants
-            if(type ==1)
-                variants = project.android.applicationVariants
-            else
+            def type = 0;
+            if (!project.android.toString().contains("Library")) {
+                 variants = project.android.applicationVariants
+                 type = 1
+             }
+            else{
                 variants = project.android.libraryVariants
+                type = 2
+            }
             variants.all { variant ->
                 if (!variant.buildType.isDebuggable()&&laopConfig.aopType==LaopUtils.AOP_TYPE_DEBUG) {
                     return;
