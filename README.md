@@ -14,6 +14,7 @@ project:  build.gradle
 
      dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'org.aspectj:aspectjtools:1.8.9'
        classpath 'com.dhaspject:dhaspject:1.0.0'
     }
     
@@ -30,6 +31,10 @@ app: build.gradle
     aopType("debug")  // aop type, debug: debug mode, default: always use, close: unuse
     moduleType(1)  //App module need to be 1,  other library need to be 2, 
 }
+`dependencies{
+...
+implementation 'org.aspectj:aspectjrt:1.8.9'
+}`
 
 
 api_log: build.gradle( the aop module, you can modify the name by yourself)
@@ -40,7 +45,10 @@ api_log: build.gradle( the aop module, you can modify the name by yourself)
     aopType("debug")
     moduleType(2)    //2 is important
 }
-
+`dependencies{
+...
+implementation 'org.aspectj:aspectjrt:1.8.9'
+}`
 
 other module need aspject:
 my_lib: build.gradle
@@ -52,3 +60,7 @@ my_lib: build.gradle
     aopType("debug")
     moduleType(2) //must to be 2
 }
+`dependencies{
+...
+implementation 'org.aspectj:aspectjrt:1.8.9'
+}`
