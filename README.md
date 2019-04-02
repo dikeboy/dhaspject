@@ -72,4 +72,6 @@ my_lib: build.gradle
 implementation 'org.aspectj:aspectjrt:1.8.9'
 }`
 
-### [Dhaspject Demo](https://github.com/dikeboy/DhaspjectDemo)
+### 参考
+* [Dhaspject Demo](https://github.com/dikeboy/DhaspjectDemo)
+* [AspectJ官网](https://eclipse.org/aspectj/)
