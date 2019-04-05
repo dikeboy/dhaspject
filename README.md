@@ -25,7 +25,7 @@ app module(main module): build.gradle
 
     apply plugin: "com.dhaspject"
     laop{
-    kotlinfiles("testpro.com","com.kotlin")  //kotlin package need to be aspject,not define will be all
+    kotlinfiles("testpro.com","com.kotlin")  //kotlin package need to be aspject
     javafiles("com.lin")  //java package need to be aspject
     aopModule("api_log") // the aop libray name 
     aopType("debug")  // aop type, debug: debug mode, default: always use, close: unuse
