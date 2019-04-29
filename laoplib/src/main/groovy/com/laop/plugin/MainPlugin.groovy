@@ -23,21 +23,20 @@ public class MainPlugin implements Plugin<Project> {
             if (laopConfig.aopType == LaopUtils.AOP_TYPE_CLOSE)
                 return
             def variants
-            def type = 0;
+
             if (!project.android.toString().contains("Library")) {
                  variants = project.android.applicationVariants
-                 type = 1
              }
             else{
                 variants = project.android.libraryVariants
-                type = 2
             }
+
             variants.all { variant ->
                 if (!variant.buildType.isDebuggable()&&laopConfig.aopType==LaopUtils.AOP_TYPE_DEBUG) {
                     return;
                 }
                 variant.outputs.all { output ->
-                    if (type == 1) {
+                    if (laopConfig.hasFlavors) {
                         if (currentFlavtor == null) {
                             currentFlavtor = LaopUtils.getCurrentFlavor(project)
                             if (currentFlavtor.size() > 2) {

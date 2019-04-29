@@ -7,7 +7,7 @@ class LaopConfig{
     List<String> javaFiles = new ArrayList<>()
     String aopModule= new String()
     String aopType=  LaopUtils.AOP_TYPE_DEFAULT // debug, close, default
-    int  moduleType =1 //1default or main app,  2 library module
+    boolean   hasFlavors = false
 
     LaopConfig javafiles(String...filters) {
         if (filters != null) {
@@ -36,10 +36,8 @@ class LaopConfig{
         }
         return this
     }
-    LaopConfig moduleType(int type) {
-        if (type != null) {
-            moduleType = type
-        }
+    LaopConfig hasFlavors(boolean type) {
+         hasFlavors = type
         return this
     }
 }
