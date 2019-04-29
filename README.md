@@ -29,6 +29,7 @@ app module(main module): build.gradle
     javafiles("com.lin")  //java package need to be aspject
     aopModule("api_log") // the aop libray name 
     aopType("debug")  // aop type, debug: debug mode, default: always use, close: unuse
+       hasFlavors(true) //if have flavors
 }
 
 `dependencies{
