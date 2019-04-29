@@ -30,13 +30,24 @@ class LaopUtils{
         }
     }
 
+    // aspectj 扫包注入 同时实现kotlin hook
+    static String  getVariantName( variant) {
+        def name = ""
+        for(int i=0;i<variant.productFlavors.size();i++){
+            name = name +variant.productFlavors[i].name
+        }
+        return name
+    }
+
     static  String  getAspectPath(Project mProject,JavaCompile javaCompile,LaopConfig laopConfig){
         def file = javaCompile.classpath.toList()
         def aspectFiles
-        for (int i = 0; i < file.size(); i++) {
-            if (file[i].getAbsolutePath().contains(laopConfig.aopModule) && file[i].getAbsolutePath().contains("classes.jar")) {
-                aspectFiles = mProject.files(file[i].getAbsolutePath())
-                break;
+        if(!laopConfig.aopModule.isEmpty()){
+            for (int i = 0; i < file.size(); i++) {
+                if (file[i].getAbsolutePath().contains(laopConfig.aopModule) && file[i].getAbsolutePath().contains("classes.jar")) {
+                    aspectFiles = mProject.files(file[i].getAbsolutePath())
+                    break;
+                }
             }
         }
         if (aspectFiles == null) {

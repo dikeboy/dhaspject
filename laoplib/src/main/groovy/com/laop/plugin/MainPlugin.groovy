@@ -22,7 +22,6 @@ public class MainPlugin implements Plugin<Project> {
             println("javaPath" + laopConfig.javaFiles)
             if (laopConfig.aopType == LaopUtils.AOP_TYPE_CLOSE)
                 return
-            println("application=" + project.android)
             def variants
             def type = 0;
             if (!project.android.toString().contains("Library")) {
@@ -45,7 +44,7 @@ public class MainPlugin implements Plugin<Project> {
                                 currentFlavtor = currentFlavtor.charAt(0).toLowerCase().toString() + currentFlavtor.substring(1)
                             }
                         }
-                        if (!output.name.toString().contains(currentFlavtor))
+                        if (!(LaopUtils.getVariantName(variant).equalsIgnoreCase(currentFlavtor)))
                             return;
                     }
                     println("linlog   current =" + currentFlavtor)
@@ -53,7 +52,7 @@ public class MainPlugin implements Plugin<Project> {
                     output.name.tokenize('-').eachWithIndex { token, index ->
                         fullName = fullName + (index == 0 ? token : token.capitalize())
                     }
-                    JavaCompile javaCompile = variant.javaCompiler
+                    JavaCompile javaCompile = variant.getJavaCompileProvider().get()
                     def aspectFiles = LaopUtils.getAspectPath(project,javaCompile,laopConfig)
 
                     println("linlog   file="+aspectFiles)

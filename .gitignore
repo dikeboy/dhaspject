@@ -11,6 +11,3 @@
 /build
 /captures
 .externalNativeBuild
-*.md
-gradle.properties
-laoplib/build.gradle
