@@ -4,7 +4,7 @@ An gradle plugin  for android project  aspject
 
 Support for multiple  library, Kotlin, Java
 
-Support for  debug,release
+Support for  debug mode,release mode or close
 
 Support for multiple flavors
 
