@@ -20,8 +20,14 @@ public class MainPlugin implements Plugin<Project> {
 
             println("kotlinPath" + laopConfig.kotlinFiles)
             println("javaPath" + laopConfig.javaFiles)
-            if (laopConfig.aopType == LaopUtils.AOP_TYPE_CLOSE)
+            if (laopConfig.aopType.trim().equals(LaopUtils.AOP_TYPE_CLOSE))
                 return
+
+            if(project.gradle.getStartParameter().getTaskRequests().toString().contains("Release")){
+                if(laopConfig.aopType.trim().equals(LaopUtils.AOP_TYPE_DEBUG)){
+                    return
+                }
+            }
             def variants
 
             if (!project.android.toString().contains("Library")) {
@@ -32,9 +38,6 @@ public class MainPlugin implements Plugin<Project> {
             }
 
             variants.all { variant ->
-                if (!variant.buildType.isDebuggable()&&laopConfig.aopType==LaopUtils.AOP_TYPE_DEBUG) {
-                    return;
-                }
                 variant.outputs.all { output ->
                     if (laopConfig.hasFlavors) {
                         if (currentFlavtor == null) {
