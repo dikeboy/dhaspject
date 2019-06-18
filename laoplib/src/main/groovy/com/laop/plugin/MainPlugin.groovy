@@ -49,6 +49,9 @@ public class MainPlugin implements Plugin<Project> {
                         if (!(LaopUtils.getVariantName(variant).equalsIgnoreCase(currentFlavtor)))
                             return;
                     }
+
+                    if(variant.buildType.isDebuggable()!=LaopUtils.isDebug(project))
+                        return;
                     println("linlog   current =" + currentFlavtor)
                     def fullName = ""
                     output.name.tokenize('-').eachWithIndex { token, index ->
@@ -57,14 +60,18 @@ public class MainPlugin implements Plugin<Project> {
                     JavaCompile javaCompile = variant.getJavaCompileProvider().get()
                     def aspectFiles = LaopUtils.getAspectPath(project,javaCompile,laopConfig)
 
-                    println("linlog   file="+aspectFiles)
+                    println("linlog   aspjectPath="+aspectFiles)
                     //do kotlin aspject
-                    def kotlinAspect = new KotlinAspect(project)
-                    kotlinAspect.doAsepct(fullName,javaCompile,aspectFiles,laopConfig.kotlinFiles)
+                    if(laopConfig.kotlinFiles.size()>0){
+                        def kotlinAspect = new KotlinAspect(project)
+                        kotlinAspect.doAsepct(fullName,javaCompile,aspectFiles,laopConfig.kotlinFiles)
+                    }
 
                     //do java aspject
-                    def javaAspject = new JavaAspect(project)
-                    javaAspject.doAsepct(fullName,javaCompile,aspectFiles,laopConfig.javaFiles)
+                    if(laopConfig.javaFiles.size()>0){
+                        def javaAspject = new JavaAspect(project)
+                        javaAspject.doAsepct(fullName,javaCompile,aspectFiles,laopConfig.javaFiles)
+                    }
                 }
             }
         }

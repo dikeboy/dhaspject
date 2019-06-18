@@ -15,7 +15,6 @@ class JavaAspect extends   IAspect{
     @Override
     void doAsepct(String taskName, JavaCompile javaCompile, String aspectpath, List<String> javaAspectInPath) {
         javaCompile.doLast {
-            println("inpath=="+javaAspectInPath)
             def inpath = ""
             int l = javaAspectInPath.size()
             for (int i = 0; i < l; i++) {

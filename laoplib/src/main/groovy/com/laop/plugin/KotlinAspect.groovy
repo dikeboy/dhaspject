@@ -1,9 +1,8 @@
 package com.laop.plugin
 
 import com.laop.inter.IAspect
-import org.aspectj.bridge.MessageHandler
 import org.gradle.api.Project
-import org.aspectj.tools.ajc.Main
+import java.io.File
 import org.gradle.api.tasks.compile.JavaCompile
 
 class KotlinAspect extends   IAspect{
@@ -18,7 +17,7 @@ class KotlinAspect extends   IAspect{
         def kotlinPath = project.buildDir.path + "/tmp/kotlin-classes/" + fullName
         def kotlinCompileTask = project.tasks.findByName(kotlinTaskName)
 
-
+        println("linlog    taskName=="+kotlinCompileTask)
         if (kotlinCompileTask != null) {
             def totalPath = project.files(kotlinCompileTask.destinationDir, javaCompile.destinationDir, javaCompile.classpath).asPath
             def  kotlinInPath = ""
@@ -31,9 +30,10 @@ class KotlinAspect extends   IAspect{
             if(kotlinAspectInPath.size==0){
                 kotlinInPath = kotlinPath
             }
+
             println("linlog    kotlinInPath=="+kotlinInPath)
             kotlinCompileTask.doLast {
-
+                println("linlog dokotlinCompileTask")
                 String[] kotlinArgs = ["-showWeaveInfo",
                                        "-1.8",
                                        "-inpath", kotlinInPath,

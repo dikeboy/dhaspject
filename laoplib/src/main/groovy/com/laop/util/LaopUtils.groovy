@@ -56,4 +56,19 @@ class LaopUtils{
         return aspectFiles.asPath
     }
 
+
+    static Boolean  isDebug(Project project) {
+        def  gradle = project.getGradle()
+        String  tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+        Pattern pattern;
+        if( tskReqStr.contains( "assemble" ) )
+            pattern = Pattern.compile("assemble(\\w+)(Debug)")
+        else
+            pattern = Pattern.compile("generate(\\w+)(Debug)")
+        Matcher matcher = pattern.matcher( tskReqStr )
+        if( matcher.find() )
+            return true
+        return false
+    }
+
 }
