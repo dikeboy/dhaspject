@@ -44,6 +44,7 @@ api_log( aop module): build.gradle( the aop module, you can modify the name by y
 
     apply plugin: "com.dhaspject"
     laop{
+     javafiles("com") // annotation file path
      aopModule("api_log")
     aopType("debug")
 }
