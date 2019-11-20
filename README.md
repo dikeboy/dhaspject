@@ -15,7 +15,7 @@ project:  build.gradle
      dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.aspectj:aspectjtools:1.8.9'
-       classpath 'com.dhaspject:dhaspject:1.0.4'
+       classpath 'com.dhaspject:dhaspject:1.0.7'
     }
     
 
@@ -44,7 +44,6 @@ api_log( aop module): build.gradle( the aop module, you can modify the name by y
 
     apply plugin: "com.dhaspject"
     laop{
-     javafiles("com") // annotation file path
      aopModule("api_log")
     aopType("debug")
 }
