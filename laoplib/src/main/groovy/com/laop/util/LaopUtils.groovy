@@ -50,9 +50,12 @@ class LaopUtils{
                     break;
                 }
             }
+            if(aspectFiles==null){
+                aspectFiles = mProject.files(javaCompile.destinationDir)
+            }
         }
         if (aspectFiles == null) {
-            aspectFiles = mProject.files(javaCompile.destinationDir, javaCompile.classpath)
+            aspectFiles = mProject.files(javaCompile.classpath,javaCompile.destinationDir)
         }
         println(AOP_LOG_KEY+"   aspectFiles=="+aspectFiles.asPath)
         return aspectFiles.asPath
