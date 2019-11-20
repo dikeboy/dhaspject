@@ -18,8 +18,8 @@ public class MainPlugin implements Plugin<Project> {
 //            println("flavor name = "+ flavor)
             LaopConfig laopConfig = project.laop
 
-            println("kotlinPath" + laopConfig.kotlinFiles)
-            println("javaPath" + laopConfig.javaFiles)
+            println(LaopUtils.AOP_LOG_KEY+"kotlinPath" + laopConfig.kotlinFiles)
+            println(LaopUtils.AOP_LOG_KEY+"javaPath" + laopConfig.javaFiles)
             if (laopConfig.aopType.trim().equals(LaopUtils.AOP_TYPE_CLOSE))
                 return
 
@@ -49,28 +49,26 @@ public class MainPlugin implements Plugin<Project> {
                         if (!(LaopUtils.getVariantName(variant).equalsIgnoreCase(currentFlavtor)))
                             return;
                     }
-
                     if(variant.buildType.isDebuggable()!=LaopUtils.isDebug(project))
                         return;
-                    println("linlog   current =" + currentFlavtor)
+                    println(LaopUtils.AOP_LOG_KEY+"   current =" + currentFlavtor)
                     def fullName = ""
                     output.name.tokenize('-').eachWithIndex { token, index ->
                         fullName = fullName + (index == 0 ? token : token.capitalize())
                     }
                     JavaCompile javaCompile = variant.getJavaCompileProvider().get()
-                    def aspectFiles = LaopUtils.getAspectPath(project,javaCompile,laopConfig)
 
-                    println("linlog   aspjectPath="+aspectFiles)
+                    def all = laopConfig.kotlinFiles.size()==0&&laopConfig.javaFiles.size()==0
                     //do kotlin aspject
-                    if(laopConfig.kotlinFiles.size()>0){
+                    if(laopConfig.kotlinFiles.size()>0||all){
                         def kotlinAspect = new KotlinAspect(project)
-                        kotlinAspect.doAsepct(fullName,javaCompile,aspectFiles,laopConfig.kotlinFiles)
+                        kotlinAspect.doAsepct(fullName,javaCompile,laopConfig,laopConfig.kotlinFiles)
                     }
 
                     //do java aspject
-                    if(laopConfig.javaFiles.size()>0){
+                    if(laopConfig.javaFiles.size()>0||all){
                         def javaAspject = new JavaAspect(project)
-                        javaAspject.doAsepct(fullName,javaCompile,aspectFiles,laopConfig.javaFiles)
+                        javaAspject.doAsepct(fullName,javaCompile,laopConfig,laopConfig.javaFiles)
                     }
                 }
             }

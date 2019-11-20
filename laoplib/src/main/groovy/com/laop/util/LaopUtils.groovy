@@ -11,6 +11,7 @@ class LaopUtils{
     public static String AOP_TYPE_CLOSE = "close"
     public static String AOP_TYPE_DEFAULT ="default"
 
+    public static String AOP_LOG_KEY = "linlog======="
     // aspectj 扫包注入 同时实现kotlin hook
     static String  getCurrentFlavor(Project project) {
         def  gradle = project.getGradle()
@@ -51,8 +52,9 @@ class LaopUtils{
             }
         }
         if (aspectFiles == null) {
-            aspectFiles = javaCompile.classpath
+            aspectFiles = mProject.files(javaCompile.destinationDir, javaCompile.classpath)
         }
+        println(AOP_LOG_KEY+"   aspectFiles=="+aspectFiles.asPath)
         return aspectFiles.asPath
     }
 
@@ -61,6 +63,10 @@ class LaopUtils{
         def  gradle = project.getGradle()
         String  tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
         Pattern pattern;
+        if( tskReqStr.contains( "assembleDebug" ) )
+            return true
+        else if(tskReqStr.contains( "assembleRelease"))
+            return false
         if( tskReqStr.contains( "assemble" ) )
             pattern = Pattern.compile("assemble(\\w+)(Debug)")
         else

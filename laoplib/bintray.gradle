@@ -6,7 +6,7 @@ apply plugin: 'maven'
 
 //使用： classpath 'com.totcy.android:gradle-plugin-test:1.0.0'
 group = "com.dhaspject"
-version = "1.0.4"
+version = "1.0.7"
 project.archivesBaseName = "dhaspject"
 
 task javadocJar(type: Jar, dependsOn: javadoc) {

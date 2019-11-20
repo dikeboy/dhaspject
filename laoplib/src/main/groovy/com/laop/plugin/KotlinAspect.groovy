@@ -1,8 +1,9 @@
 package com.laop.plugin
 
 import com.laop.inter.IAspect
+import org.aspectj.bridge.MessageHandler
+import org.aspectj.tools.ajc.Main
 import org.gradle.api.Project
-import java.io.File
 import org.gradle.api.tasks.compile.JavaCompile
 
 class KotlinAspect extends   IAspect{
@@ -12,12 +13,11 @@ class KotlinAspect extends   IAspect{
         this.project = project
     }
     @Override
-    void doAsepct(String fullName,JavaCompile javaCompile,String aspectpath,List<String> kotlinAspectInPath) {
+    void doAsepct(String fullName,JavaCompile javaCompile,LaopConfig laopConfig,List<String> kotlinAspectInPath) {
         def kotlinTaskName = "compile" + fullName.charAt(0).toUpperCase()+ fullName.substring(1) + "Kotlin"
         def kotlinPath = project.buildDir.path + "/tmp/kotlin-classes/" + fullName
         def kotlinCompileTask = project.tasks.findByName(kotlinTaskName)
 
-        println("linlog    taskName=="+kotlinCompileTask)
         if (kotlinCompileTask != null) {
             def totalPath = project.files(kotlinCompileTask.destinationDir, javaCompile.destinationDir, javaCompile.classpath).asPath
             def  kotlinInPath = ""
@@ -31,9 +31,11 @@ class KotlinAspect extends   IAspect{
                 kotlinInPath = kotlinPath
             }
 
-            println("linlog    kotlinInPath=="+kotlinInPath)
+            println(LaopUtils.AOP_LOG_KEY+"    kotlinInPath before=="+kotlinInPath)
             kotlinCompileTask.doLast {
-                println("linlog dokotlinCompileTask")
+                def aspectpath = LaopUtils.getAspectPath(project,javaCompile,laopConfig)
+
+                println(LaopUtils.AOP_LOG_KEY+"    kotlinInPath after=="+kotlinInPath)
                 String[] kotlinArgs = ["-showWeaveInfo",
                                        "-1.8",
                                        "-inpath", kotlinInPath,

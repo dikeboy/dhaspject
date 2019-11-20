@@ -13,8 +13,10 @@ class JavaAspect extends   IAspect{
         this.project = project
     }
     @Override
-    void doAsepct(String taskName, JavaCompile javaCompile, String aspectpath, List<String> javaAspectInPath) {
+    void doAsepct(String taskName, JavaCompile javaCompile,LaopConfig laopConfig, List<String> javaAspectInPath) {
+        println(LaopUtils.AOP_LOG_KEY+"    javaInPath before=="+javaAspectInPath)
         javaCompile.doLast {
+            def aspectpath = LaopUtils.getAspectPath(project,javaCompile,laopConfig)
             def inpath = ""
             int l = javaAspectInPath.size()
             for (int i = 0; i < l; i++) {
@@ -25,7 +27,7 @@ class JavaAspect extends   IAspect{
             if(javaAspectInPath.size==0){
                 inpath = javaCompile.destinationDir.toString()
             }
-            println("linlog    javaInPath=="+inpath)
+            println(LaopUtils.AOP_LOG_KEY+"    javaInPath=="+inpath)
             String[] javaArgs = ["-showWeaveInfo",
                                  "-1.8",
                                  "-inpath", inpath ,
