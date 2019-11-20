@@ -21,7 +21,7 @@ uploadArchives {
             //文件发布到下面目录
             repository(url: uri('../repo'))
             pom.groupId = 'com.dhaspject'
-            pom.version = '11.0.5'
+            pom.version = '1.0.8'
         }
     }
 }
