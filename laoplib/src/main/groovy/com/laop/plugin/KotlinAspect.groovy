@@ -19,6 +19,11 @@ class KotlinAspect extends   IAspect{
         def kotlinCompileTask = project.tasks.findByName(kotlinTaskName)
 
         if (kotlinCompileTask != null) {
+
+//            def classPath = javaCompile.classpath.filter {
+////                !it.canonicalPath.contains("play-service")
+//                true
+//            }
             def totalPath = project.files(kotlinCompileTask.destinationDir, javaCompile.destinationDir, javaCompile.classpath).asPath
             def  kotlinInPath = ""
             int l =  kotlinAspectInPath.size()
@@ -32,7 +37,10 @@ class KotlinAspect extends   IAspect{
             }
 
             println(LaopUtils.AOP_LOG_KEY+"    kotlinInPath before=="+kotlinInPath)
-            kotlinCompileTask.doLast {
+            def  runTask = javaCompile
+            if(laopConfig.useJavaTask)
+                runTask = javaCompile
+            runTask.doLast {
                 def aspectpath = LaopUtils.getAspectPath(project,javaCompile,laopConfig)
 
                 println(LaopUtils.AOP_LOG_KEY+"    kotlinInPath after=="+kotlinInPath)

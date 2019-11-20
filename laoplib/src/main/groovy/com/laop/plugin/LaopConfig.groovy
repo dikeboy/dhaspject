@@ -8,6 +8,7 @@ class LaopConfig{
     String aopModule= new String()
     String aopType=  LaopUtils.AOP_TYPE_DEFAULT // debug, close, default
     boolean   hasFlavors = false
+    boolean  useJavaTask = false  //If kotlin not exist(operation)
 
     LaopConfig javafiles(String...filters) {
         if (filters != null) {
@@ -38,6 +39,10 @@ class LaopConfig{
     }
     LaopConfig hasFlavors(boolean type) {
          hasFlavors = type
+        return this
+    }
+    LaopConfig useJavaTask(boolean type) {
+        useJavaTask = type
         return this
     }
 }
