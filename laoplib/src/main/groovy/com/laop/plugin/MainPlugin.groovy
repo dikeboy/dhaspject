@@ -1,7 +1,5 @@
 package com.laop.plugin
 
-import com.laop.plugin.LaopUtils
-import org.apache.tools.ant.taskdefs.Java
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.JavaCompile
@@ -28,8 +26,8 @@ public class MainPlugin implements Plugin<Project> {
                     return
                 }
             }
-            def isAndroidLibrary = plugins.hasPlugin("com.android.library")
-            def variants = isAndroidLibrary ? android.libraryVariants : android.applicationVariants
+            def isAndroidLibrary = project.plugins.hasPlugin("com.android.library")
+            def variants = isAndroidLibrary ? project.android.libraryVariants : project.android.applicationVariants
 
             variants.all { variant ->
                 variant.outputs.all { output ->
