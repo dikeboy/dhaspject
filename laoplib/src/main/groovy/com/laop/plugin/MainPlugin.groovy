@@ -28,14 +28,8 @@ public class MainPlugin implements Plugin<Project> {
                     return
                 }
             }
-            def variants
-
-            if (!project.android.toString().contains("Library")) {
-                 variants = project.android.applicationVariants
-             }
-            else{
-                variants = project.android.libraryVariants
-            }
+            def isAndroidLibrary = plugins.hasPlugin("com.android.library")
+            def variants = isAndroidLibrary ? android.libraryVariants : android.applicationVariants
 
             variants.all { variant ->
                 variant.outputs.all { output ->
