@@ -37,7 +37,7 @@ class KotlinAspect extends   IAspect{
             }
 
             println(LaopUtils.AOP_LOG_KEY+"    kotlinInPath before=="+kotlinInPath)
-            def  runTask = javaCompile
+            def  runTask = kotlinCompileTask
             if(laopConfig.useJavaTask)
                 runTask = javaCompile
             runTask.doLast {
