@@ -15,11 +15,11 @@ project:  build.gradle
      dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.aspectj:aspectjtools:1.8.9'
-       classpath 'com.dhaspject:dhaspject:1.0.7'
+       classpath 'com.dhaspject:dhaspject:1.0.8'
     }
     
 
-
+##javafiles and kotlinfiles all empty will aop all module
 
 app module(main module): build.gradle
 
@@ -27,9 +27,10 @@ app module(main module): build.gradle
     laop{
     kotlinfiles("testpro.com","com.kotlin")  //kotlin package need to be aspject
     javafiles("com.lin")  //java package need to be aspject
-    aopModule("api_log") // the aop libray name 
+    aopModule("api_log") // the aop library name 
     aopType("debug")  // aop type, debug: debug mode, default: always use, close: unuse
-       hasFlavors(true) //if have flavors
+    hasFlavors(true) //if have flavors
+    useJavaTask(true)//if kotlin file not effect
 }
 
 `dependencies{
