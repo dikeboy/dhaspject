@@ -30,7 +30,6 @@ app module(main module): build.gradle
     aopModule("api_log") // the aop library name 
     aopType("debug")  // aop type, debug: debug mode, default: always use, close: unuse
     hasFlavors(true) //if have flavors
-    useJavaTask(true)//if kotlin file not effect
 }
 
 `dependencies{
