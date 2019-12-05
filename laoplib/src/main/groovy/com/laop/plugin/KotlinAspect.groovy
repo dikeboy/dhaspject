@@ -13,7 +13,7 @@ class KotlinAspect extends   IAspect{
         this.project = project
     }
     @Override
-    void doAsepct(String fullName,JavaCompile javaCompile,LaopConfig laopConfig,List<String> kotlinAspectInPath) {
+    void doAsepct(String fullName,JavaCompile javaCompile,LaopConfig laopConfig,List<String> kotlinAspectInPath,String aspectpath) {
         def kotlinTaskName = "compile" + fullName.charAt(0).toUpperCase()+ fullName.substring(1) + "Kotlin"
         def kotlinPath = project.buildDir.path + "/tmp/kotlin-classes/" + fullName
         def kotlinCompileTask = project.tasks.findByName(kotlinTaskName)
@@ -35,14 +35,10 @@ class KotlinAspect extends   IAspect{
             if(kotlinAspectInPath.size==0){
                 kotlinInPath = kotlinPath
             }
-
             println(LaopUtils.AOP_LOG_KEY+"    kotlinInPath before=="+kotlinInPath)
-            def  runTask = kotlinCompileTask
-            if(laopConfig.useJavaTask)
-                runTask = javaCompile
-            runTask.doLast {
-                def aspectpath = LaopUtils.getAspectPath(project,javaCompile,laopConfig)
-
+            boolean  isAop = false
+            kotlinCompileTask.doLast {
+                isAop = true
                 println(LaopUtils.AOP_LOG_KEY+"    kotlinInPath after=="+kotlinInPath)
                 String[] kotlinArgs = ["-showWeaveInfo",
                                        "-1.8",
@@ -54,6 +50,23 @@ class KotlinAspect extends   IAspect{
                         File.pathSeparator)]
                 MessageHandler handler = new MessageHandler(true)
                 new Main().run(kotlinArgs, handler)
+            }
+            if(laopConfig.useJavaTask){
+                javaCompile.doLast {
+                    if(!isAop){
+                        println(LaopUtils.AOP_LOG_KEY+"    kotlinInPath after=="+kotlinInPath)
+                        String[] kotlinArgs = ["-showWeaveInfo",
+                                               "-1.8",
+                                               "-inpath", kotlinInPath,
+                                               "-aspectpath", aspectpath,
+                                               "-d", kotlinPath,
+                                               "-classpath", totalPath,
+                                               "-bootclasspath", project.android.bootClasspath.join(
+                                File.pathSeparator)]
+                        MessageHandler handler = new MessageHandler(true)
+                        new Main().run(kotlinArgs, handler)
+                    }
+                }
             }
         }
 

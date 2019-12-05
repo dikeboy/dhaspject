@@ -40,9 +40,10 @@ class LaopUtils{
         return name
     }
 
-    static  String  getAspectPath(Project mProject,JavaCompile javaCompile,LaopConfig laopConfig){
+    static  String  getAspectPath(Project mProject,JavaCompile javaCompile,LaopConfig laopConfig,String fullName){
         def file = javaCompile.classpath.toList()
         def aspectFiles
+        boolean  isEmpty = false
         if(!laopConfig.aopModule.isEmpty()){
             for (int i = 0; i < file.size(); i++) {
                 if (file[i].getAbsolutePath().contains(laopConfig.aopModule) && file[i].getAbsolutePath().contains("classes.jar")) {
@@ -51,14 +52,32 @@ class LaopUtils{
                 }
             }
             if(aspectFiles==null){
+                isEmpty = true
                 aspectFiles = mProject.files(javaCompile.destinationDir)
             }
         }
         if (aspectFiles == null) {
+            isEmpty = true
             aspectFiles = mProject.files(javaCompile.classpath,javaCompile.destinationDir)
         }
-        println(AOP_LOG_KEY+"   aspectFiles=="+aspectFiles.asPath)
-        return aspectFiles.asPath
+        String aspectPath = aspectFiles.asPath
+        if(isEmpty){
+            String kotlinPath = getKotlinPath(mProject,fullName)
+            if(kotlinPath!=null)
+                aspectPath = aspectPath +File.pathSeparator +kotlinPath
+        }
+        println(AOP_LOG_KEY+"   aspectFiles=="+aspectPath)
+        return aspectPath
+    }
+
+    static  String  getKotlinPath(Project project,String fullName){
+        def kotlinTaskName = "compile" + fullName.charAt(0).toUpperCase()+ fullName.substring(1) + "Kotlin"
+        def kotlinPath = project.buildDir.path + "/tmp/kotlin-classes/" + fullName
+        def kotlinCompileTask = project.tasks.findByName(kotlinTaskName)
+        if (kotlinCompileTask != null) {
+            return kotlinPath
+        }
+        return null
     }
 
 

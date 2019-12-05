@@ -51,16 +51,18 @@ public class MainPlugin implements Plugin<Project> {
                     JavaCompile javaCompile = variant.getJavaCompileProvider().get()
 
                     def all = laopConfig.kotlinFiles.size()==0&&laopConfig.javaFiles.size()==0
+                    def aspectpath = LaopUtils.getAspectPath(project,javaCompile,laopConfig,fullName)
+
                     //do kotlin aspject
                     if(laopConfig.kotlinFiles.size()>0||all){
                         def kotlinAspect = new KotlinAspect(project)
-                        kotlinAspect.doAsepct(fullName,javaCompile,laopConfig,laopConfig.kotlinFiles)
+                        kotlinAspect.doAsepct(fullName,javaCompile,laopConfig,laopConfig.kotlinFiles,aspectpath)
                     }
 
                     //do java aspject
                     if(laopConfig.javaFiles.size()>0||all){
                         def javaAspject = new JavaAspect(project)
-                        javaAspject.doAsepct(fullName,javaCompile,laopConfig,laopConfig.javaFiles)
+                        javaAspject.doAsepct(fullName,javaCompile,laopConfig,laopConfig.javaFiles,aspectpath)
                     }
                 }
             }

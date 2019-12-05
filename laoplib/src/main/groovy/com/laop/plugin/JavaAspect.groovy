@@ -13,10 +13,9 @@ class JavaAspect extends   IAspect{
         this.project = project
     }
     @Override
-    void doAsepct(String taskName, JavaCompile javaCompile,LaopConfig laopConfig, List<String> javaAspectInPath) {
+    void doAsepct(String taskName, JavaCompile javaCompile,LaopConfig laopConfig, List<String> javaAspectInPath,String aspectpath) {
         println(LaopUtils.AOP_LOG_KEY+"    javaInPath before=="+javaAspectInPath)
         javaCompile.doLast {
-            def aspectpath = LaopUtils.getAspectPath(project,javaCompile,laopConfig)
             def inpath = ""
             int l = javaAspectInPath.size()
             for (int i = 0; i < l; i++) {
