@@ -8,7 +8,7 @@ Support for  debug mode,release mode or close
 
 Support for multiple flavors
 
-## If use kotlin  make sure  the @Aspect annotion file use kotlin
+## If use kotlin  make sure  the @Aspect annotion class file use kotlin
 
 ## How to use
 
