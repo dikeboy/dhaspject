@@ -21,7 +21,7 @@ project:  build.gradle
     }
     
 
-##javafiles and kotlinfiles all empty will aop all module
+## javafiles and kotlinfiles all empty will compile  all the file of current module,one of this empty will comile only select
 
 app module(main module): build.gradle
 
