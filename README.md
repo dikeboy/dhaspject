@@ -1,6 +1,6 @@
 ## What's this
 
-An gradle plugin  for android project  aspject
+An gradle plugin  for android project  aspectj
 
 Support for multiple  library, Kotlin, Java
 
