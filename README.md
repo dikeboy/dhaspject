@@ -48,7 +48,7 @@ api_log( aop module): build.gradle( the aop module, you can modify the name by y
     laop{
      aopModule("api_log")
     aopType("debug")
-    useJavaTask(true) //(Opertion) IF kotlin file not effective  may only use after gradle clean
+    useJavaTask(true) //(Opertion) IF kotlin file not effective
 }
 
 
