@@ -17,7 +17,9 @@ class LaopUtils{
         def  gradle = project.getGradle()
         String  tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
         Pattern pattern;
-        if( tskReqStr.contains( "assemble" ) )
+        if( tskReqStr.contains( "bundle" ) )
+            pattern = Pattern.compile("bundle(\\w+)(Release|Debug)")
+        else if( tskReqStr.contains( "assemble" ) )
             pattern = Pattern.compile("assemble(\\w+)(Release|Debug)")
         else
             pattern = Pattern.compile("generate(\\w+)(Release|Debug)")
@@ -85,11 +87,15 @@ class LaopUtils{
         def  gradle = project.getGradle()
         String  tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
         Pattern pattern;
+        if( tskReqStr.contains( "bundleDebug" ) )
+            return true
         if( tskReqStr.contains( "assembleDebug" ) )
             return true
         else if(tskReqStr.contains( "assembleRelease"))
             return false
-        if( tskReqStr.contains( "assemble" ) )
+        if( tskReqStr.contains( "bundle" ) )
+            pattern = Pattern.compile("bundle(\\w+)(Debug)")
+        else if( tskReqStr.contains( "assemble" ) )
             pattern = Pattern.compile("assemble(\\w+)(Debug)")
         else
             pattern = Pattern.compile("generate(\\w+)(Debug)")
