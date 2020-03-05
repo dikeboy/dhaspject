@@ -17,7 +17,7 @@ project:  build.gradle
      dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.aspectj:aspectjtools:1.8.9'
-       classpath 'com.dhaspject:dhaspject:1.1.0'
+       classpath 'com.dhaspject:dhaspject:1.1.1'
     }
     
 
